@@ -10,8 +10,17 @@ var app = start();
 
 describe('express server tests', function() {
   var server;
+
   before(function(done) {
-    server = app.runApp('data', done);
+    fs.readdir('data', function(err,files){
+      if(err) {
+        fs.mkdirSync('./data');
+        fs.writeFileSync('./data/Alma.json', {"name": "max"});
+      } else {
+        console.log('direcory exists');
+      }
+      server = app.runApp('data', done);
+    });
   });
 
   beforeEach(function(done) {
@@ -25,13 +34,13 @@ describe('express server tests', function() {
         expect(response).to.have.status(200);
         done();
       });
-  })
+  });
 
   it('should put a new file in the data folder', function() {
     assert.equal(fs.readdirSync('data').length, 2); // Already has one test file in there name Alma so it should have that file always plus one
   });
 
-  it('should now have two JSON files in the data directory', function() {
+  it('should now have three JSON files in the data directory', function() {
     assert.equal(fs.readdirSync('data').length, 3);
   });
 
@@ -65,5 +74,4 @@ describe('express server tests', function() {
       }
     }
   });
-
 });
