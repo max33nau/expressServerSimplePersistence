@@ -15,7 +15,7 @@ gulp.task('watch-test', function() {
 });
 
 gulp.task('lint', function() {
-  return gulp.src(['./lib/*.js','./test/tesExpressServer.js'])
+  return gulp.src(['./lib/*.js','./test/testExpressServer.js'])
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter(stylish));
 });
